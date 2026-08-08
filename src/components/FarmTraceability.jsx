@@ -28,14 +28,15 @@ const REVIEWS = [
 
 const FarmTraceability = () => {
   return (
-    <section className="py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-24">
+    <section id="farm-sourcing" className="py-28">
+      <div className="container-custom space-y-24">
       {/* Farm Sourcing Sub-section */}
       <div>
-        <div className="flex flex-col items-center text-center space-y-6 mb-20">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#8a9b91]">Transparent Origins</span>
-          <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white">Our Farm Partners</h2>
+        <div className="flex flex-col items-center text-center space-y-8 mb-24">
+          <span className="text-sm uppercase tracking-[0.2em] text-[#8a9b91] font-semibold">Transparent Origins</span>
+          <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white leading-[1.2]">Our Farm Partners</h2>
           <div className="w-12 h-[2px] bg-[#22c55e] opacity-60"></div>
-          <p className="text-[#8a9b91] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[#8a9b91] max-w-2xl mx-auto leading-loose text-lg">
             We partner exclusively with sustainable, organic farms within a 100-mile radius 
             to ensure peak freshness and nutrient density in every meal.
           </p>
@@ -43,7 +44,7 @@ const FarmTraceability = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {FARM_PARTNERS.map((farm, index) => (
-            <div key={index} className="glass-card p-7 rounded-2xl flex flex-col relative overflow-hidden group">
+            <div key={index} className="glass-card p-8 rounded-[32px] flex flex-col relative overflow-hidden group border border-white/5 shadow-2xl">
               <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
                 <ShieldCheck size={80} />
               </div>
@@ -69,15 +70,15 @@ const FarmTraceability = () => {
 
       {/* Reviews Sub-section */}
       <div>
-        <div className="flex flex-col items-center text-center space-y-6 mb-20">
-          <span className="text-xs uppercase tracking-[0.2em] text-[#8a9b91]">Community</span>
-          <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white">Client Experiences</h2>
+        <div className="flex flex-col items-center text-center space-y-8 mb-24">
+          <span className="text-sm uppercase tracking-[0.2em] text-[#8a9b91] font-semibold">Community</span>
+          <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white leading-[1.2]">Client Experiences</h2>
           <div className="w-12 h-[2px] bg-[#22c55e] opacity-60"></div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {REVIEWS.map(review => (
-            <div key={review.id} className="glass-card p-7 rounded-2xl flex flex-col relative">
+            <div key={review.id} className="glass-card p-8 rounded-[32px] flex flex-col relative border border-white/5 shadow-2xl">
               <div className="absolute top-7 right-7 text-[#22c55e]/20">
                 <Quote size={40} />
               </div>
@@ -104,6 +105,7 @@ const FarmTraceability = () => {
             </div>
           ))}
         </div>
+      </div>
       </div>
     </section>
   );

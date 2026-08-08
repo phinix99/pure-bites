@@ -5,8 +5,8 @@ export default function Navbar({ cartCount, onOpenCart, onOpenBuilder, onOpenCal
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#060d09] border-b border-white/5 py-5 px-8">
-      <div className="container-custom mx-auto flex items-center justify-between">
+    <nav className="sticky top-0 z-50 bg-[#060d09] border-b border-white/5 py-5">
+      <div className="container-custom flex items-center justify-between">
         {/* Brand */}
         <div className="flex items-center gap-3 cursor-pointer">
           <Leaf className="text-emerald-500 w-6 h-6" />

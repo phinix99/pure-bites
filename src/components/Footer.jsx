@@ -7,8 +7,8 @@ export default function Footer({ onOpenBuilder, onOpenCalculator }) {
   };
 
   return (
-    <footer className="bg-[#060d09] border-t border-white/5 py-20 px-8 text-[#8a9b91]">
-      <div className="container-custom mx-auto">
+    <footer className="bg-[#060d09] border-t border-white/5 py-20 text-[#8a9b91]">
+      <div className="container-custom">
         <div className="grid md:grid-cols-2 gap-16 mb-16">
           
           {/* Left Column */}
