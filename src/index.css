@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   --bg-dark: #0a120e;
   --bg-card: rgba(19, 34, 27, 0.7);
@@ -68,6 +70,14 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Typography Helpers */
