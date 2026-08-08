@@ -1,128 +1,68 @@
 import React from 'react';
-import { Sparkles, Utensils, Award, ShieldCheck, Flame, ArrowRight, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 
 export default function Hero({ onOpenBuilder, onExploreMenu }) {
   return (
-    <section className="relative overflow-hidden py-12 lg:py-20">
-      
-      {/* Background glow effects */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-1/3 right-10 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <section className="bg-[#060d09] py-32 px-8 overflow-hidden relative">
+      <div className="container-custom mx-auto">
+        <div className="grid lg:grid-cols-12 gap-16 items-center">
           
-          {/* Left Column: Headlines & CTAs */}
-          <div className="lg:col-span-7 space-y-6">
-            
-            {/* Top pill badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-bold uppercase tracking-wider shadow-sm animate-fade-in">
-              <Sparkles className="w-4 h-4 text-emerald-400" />
-              <span>100% Certified Organic Farm-to-Table</span>
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-serif leading-[1.15] text-white">
-              Pure Clean Eating, <br />
-              <span className="gradient-text">10x Artisanal Flavor.</span>
-            </h1>
-
-            {/* Sub-text */}
-            <p className="text-lg text-gray-300 max-w-2xl leading-relaxed">
-              Elevate your daily nutrition with chef-crafted power bowls, cold-pressed elixirs, and customizable superfood meals. Zero refined sugars, zero seed oils — just pure, organic nourishment.
+          {/* Left Content (7 columns) */}
+          <div className="lg:col-span-7 space-y-8 max-w-2xl">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#8a9b91] font-semibold">
+              100% Organic Farm-to-Table
             </p>
-
-            {/* CTA Action buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            
+            <h1 className="font-serif text-5xl lg:text-7xl font-bold text-white leading-tight">
+              Pure Clean<br />
+              Eating. <span className="gradient-text">Artisanal Flavor.</span>
+            </h1>
+            
+            <p className="text-[#8a9b91] text-lg max-w-lg leading-relaxed">
+              Experience the perfect harmony of nature's finest ingredients, 
+              expertly crafted into meals that nourish your body and elevate 
+              your everyday dining experience. No compromises.
+            </p>
+            
+            <div className="flex flex-wrap gap-5 pt-4">
               <button 
-                onClick={onOpenBuilder}
-                className="btn-primary text-base px-7 py-3.5 shadow-lg shadow-emerald-600/30 group cursor-pointer"
+                onClick={onOpenBuilder} 
+                className="btn-primary px-8 py-4 rounded-full font-medium"
               >
-                <Utensils className="w-5 h-5 text-emerald-950 group-hover:rotate-12 transition-transform" />
-                <span>Build Custom Bowl</span>
-                <ArrowRight className="w-4 h-4 text-emerald-950 group-hover:translate-x-1 transition-transform" />
+                Build Your Bowl
               </button>
-
               <button 
-                onClick={onExploreMenu}
-                className="btn-secondary text-base px-6 py-3.5 border-emerald-500/30 text-emerald-200 hover:border-emerald-500/60"
+                onClick={onExploreMenu} 
+                className="btn-secondary px-8 py-4 rounded-full font-medium text-white border border-white/20 hover:bg-white/5 transition-all duration-500"
               >
-                <span>Explore Organic Menu</span>
+                Explore Menu
               </button>
             </div>
-
-            {/* Key trust highlights */}
-            <div className="pt-6 border-t border-gray-800/80 grid grid-cols-3 gap-4 max-w-xl">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 text-emerald-400">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-white">100% Non-GMO</p>
-                  <p className="text-[11px] text-gray-400">USDA Certified</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20 text-amber-400">
-                  <Flame className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-white">Zero Seed Oils</p>
-                  <p className="text-[11px] text-gray-400">Cold Pressed EVOO</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-teal-500/10 flex items-center justify-center border border-teal-500/20 text-teal-400">
-                  <Award className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-white">Express Delivery</p>
-                  <p className="text-[11px] text-gray-400">Hot & Fresh 30m</p>
-                </div>
-              </div>
-            </div>
-
           </div>
 
-          {/* Right Column: Hero Visual Image Card */}
+          {/* Right Image (5 columns) */}
           <div className="lg:col-span-5 relative">
-            <div className="relative mx-auto max-w-md lg:max-w-none">
-              
-              {/* Outer glowing border card */}
-              <div className="relative rounded-3xl overflow-hidden p-2 bg-gradient-to-b from-emerald-500/30 via-transparent to-amber-500/20 shadow-2xl">
-                <img 
-                  src="/assets/hero_pure_bites.png" 
-                  alt="Pure Bites Gourmet Organic Spread" 
-                  className="w-full h-[440px] object-cover rounded-2xl transition-transform duration-700 hover:scale-105"
-                />
+            <div className="relative rounded-3xl border border-white/5 overflow-hidden shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                alt="Fresh organic salad bowl" 
+                className="w-full h-[600px] object-cover transition-transform duration-700 hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#060d09]/80 to-transparent"></div>
+            </div>
 
-                {/* Floating Rating Badge */}
-                <div className="absolute top-6 right-6 glass-panel px-4 py-2.5 flex items-center gap-2 border border-emerald-500/40 shadow-xl animate-float">
-                  <div className="flex text-amber-400">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                    ))}
-                  </div>
-                  <span className="text-xs font-bold text-white">4.98 / 5.0</span>
-                </div>
-
-                {/* Floating Daily Delivery Stat */}
-                <div className="absolute bottom-6 left-6 glass-panel p-4 flex items-center gap-3 border border-emerald-500/40 shadow-2xl">
-                  <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-gray-950 text-lg shadow-md">
-                    🌱
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-emerald-300 uppercase tracking-wider">Daily Fresh Harvest</p>
-                    <p className="text-sm font-bold text-white">15,400+ Meals Served</p>
-                  </div>
-                </div>
+            {/* Floating Rating Badge */}
+            <div className="glass-card absolute -left-8 top-12 p-4 rounded-2xl flex items-center gap-4 animate-float border border-white/5 shadow-xl">
+              <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                <Star className="text-emerald-500 w-6 h-6 fill-emerald-500" />
               </div>
-
+              <div>
+                <p className="text-white font-bold text-xl">4.9/5</p>
+                <p className="text-xs text-[#8a9b91]">2k+ Reviews</p>
+              </div>
             </div>
           </div>
-
+          
         </div>
       </div>
     </section>

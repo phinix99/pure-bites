@@ -1,211 +1,157 @@
 import React, { useState } from 'react';
-import { HeartPulse, Flame, Target, Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Flame, Sparkles, X } from 'lucide-react';
 
 export default function NutritionCalculator({ isOpen, onClose, onAddToCart, onOpenBuilder }) {
-  const [age, setAge] = useState(28);
-  const [weight, setWeight] = useState(68); // kg
-  const [height, setHeight] = useState(175); // cm
+  const [age, setAge] = useState(30);
+  const [weight, setWeight] = useState(70);
   const [gender, setGender] = useState('female');
-  const [goal, setGoal] = useState('lean'); // 'lean', 'maintain', 'muscle'
-  const [activity, setActivity] = useState(1.375); // moderate
+  const [goal, setGoal] = useState('maintain');
 
   if (!isOpen) return null;
 
-  // Mifflin-St Jeor Equation
-  let bmr = (10 * weight) + (6.25 * height) - (5 * age) + (gender === 'male' ? 5 : -161);
-  let tdee = Math.round(bmr * activity);
-
-  let targetCals = tdee;
-  if (goal === 'lean') targetCals = Math.round(tdee * 0.82);
-  if (goal === 'muscle') targetCals = Math.round(tdee * 1.15);
-
-  let targetProtein = Math.round((targetCals * 0.30) / 4);
-  let targetCarbs = Math.round((targetCals * 0.40) / 4);
-  let targetFat = Math.round((targetCals * 0.30) / 9);
+  // Dummy logic for macro calculation based on inputs
+  const calories = goal === 'lose' ? 1800 : goal === 'gain' ? 2800 : 2200;
+  const protein = Math.round(weight * 2);
+  const fat = Math.round((calories * 0.25) / 9);
+  const carbs = Math.round((calories - (protein * 4) - (fat * 9)) / 4);
 
   return (
-    <div className="modal-overlay z-50 py-10 overflow-y-auto" onClick={onClose}>
-      <div 
-        className="glass-panel max-w-3xl w-full p-6 sm:p-8 relative my-auto animate-fade-in border-amber-500/30 max-h-[90vh] overflow-y-auto"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          className="absolute top-5 right-5 text-gray-400 hover:text-white bg-gray-900/80 w-8 h-8 rounded-full flex items-center justify-center border border-gray-800"
-        >
-          ✕
+    <div className="modal-overlay flex items-center justify-center fixed inset-0 z-50 bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
+      <div className="glass-panel w-full max-w-3xl p-8 lg:p-10 relative my-8 border border-white/5 rounded-[2rem]">
+        
+        {/* Close Button */}
+        <button onClick={onClose} className="absolute top-6 right-6 text-[#8a9b91] hover:text-white transition-colors duration-500">
+          <X className="w-6 h-6" />
         </button>
 
         {/* Header */}
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center text-xl">
-            ⚡
-          </div>
-          <div>
-            <h2 className="font-serif text-2xl font-bold text-white flex items-center gap-2">
-              Wellness & Macro Goal Quiz
-            </h2>
-            <p className="text-xs text-gray-300">Discover your optimal daily energy target & personalized organic meal blueprint.</p>
-          </div>
+        <div className="mb-12 text-center space-y-3">
+          <h2 className="font-serif text-4xl lg:text-5xl text-white">
+            <span className="mr-3">✨</span>Macro Blueprint
+          </h2>
+          <p className="text-[#8a9b91] text-lg max-w-md mx-auto">
+            Dial in your metrics to generate the perfect personalized nutrition protocol.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          
-          {/* Inputs */}
-          <div className="space-y-4">
-            
-            {/* Gender toggle */}
-            <div>
-              <label className="text-xs font-bold text-gray-300 uppercase block mb-1.5">Gender</label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Left: Inputs */}
+          <div className="space-y-8">
+            <div className="space-y-6">
+              <h3 className="text-[#8a9b91] uppercase tracking-widest text-xs font-semibold mb-4">Biological Data</h3>
+              
+              <div className="flex p-1 bg-black/40 rounded-xl border border-white/5">
+                <button 
                   onClick={() => setGender('female')}
-                  className={`py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                    gender === 'female' ? 'bg-amber-500/20 border-amber-500 text-amber-300' : 'bg-gray-950/50 border-gray-800 text-gray-400'
-                  }`}
+                  className={`flex-1 py-3 text-sm font-medium rounded-lg transition-all duration-500 ${gender === 'female' ? 'bg-[#22c55e] text-[#060d09]' : 'text-[#8a9b91] hover:text-white'}`}
                 >
                   Female
                 </button>
-                <button
+                <button 
                   onClick={() => setGender('male')}
-                  className={`py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                    gender === 'male' ? 'bg-amber-500/20 border-amber-500 text-amber-300' : 'bg-gray-950/50 border-gray-800 text-gray-400'
-                  }`}
+                  className={`flex-1 py-3 text-sm font-medium rounded-lg transition-all duration-500 ${gender === 'male' ? 'bg-[#22c55e] text-[#060d09]' : 'text-[#8a9b91] hover:text-white'}`}
                 >
                   Male
                 </button>
               </div>
-            </div>
 
-            {/* Sliders: Weight, Height, Age */}
-            <div>
-              <div className="flex justify-between text-xs font-bold mb-1">
-                <span className="text-gray-300">Weight</span>
-                <span className="text-amber-400">{weight} kg</span>
+              <div>
+                <div className="flex justify-between text-sm mb-3">
+                  <span className="text-[#8a9b91]">Age</span>
+                  <span className="text-white font-serif">{age} yrs</span>
+                </div>
+                <input 
+                  type="range" min="16" max="99" value={age} 
+                  onChange={(e) => setAge(e.target.value)}
+                  className="w-full accent-[#22c55e] h-1 bg-white/10 rounded-lg appearance-none cursor-pointer"
+                />
               </div>
-              <input 
-                type="range" min="40" max="130" value={weight} 
-                onChange={(e) => setWeight(Number(e.target.value))}
-                className="w-full accent-amber-500 bg-gray-900 rounded-lg h-2"
-              />
-            </div>
 
-            <div>
-              <div className="flex justify-between text-xs font-bold mb-1">
-                <span className="text-gray-300">Height</span>
-                <span className="text-amber-400">{height} cm</span>
-              </div>
-              <input 
-                type="range" min="140" max="210" value={height} 
-                onChange={(e) => setHeight(Number(e.target.value))}
-                className="w-full accent-amber-500 bg-gray-900 rounded-lg h-2"
-              />
-            </div>
-
-            <div>
-              <div className="flex justify-between text-xs font-bold mb-1">
-                <span className="text-gray-300">Age</span>
-                <span className="text-amber-400">{age} years</span>
-              </div>
-              <input 
-                type="range" min="16" max="80" value={age} 
-                onChange={(e) => setAge(Number(e.target.value))}
-                className="w-full accent-amber-500 bg-gray-900 rounded-lg h-2"
-              />
-            </div>
-
-            {/* Primary Goal */}
-            <div>
-              <label className="text-xs font-bold text-gray-300 uppercase block mb-1.5">Primary Fitness Goal</label>
-              <div className="grid grid-cols-3 gap-2">
-                <button
-                  onClick={() => setGoal('lean')}
-                  className={`p-2 rounded-xl text-[11px] font-bold border transition-all text-center cursor-pointer ${
-                    goal === 'lean' ? 'bg-emerald-500/20 border-emerald-500 text-emerald-300' : 'bg-gray-950/50 border-gray-800 text-gray-400'
-                  }`}
-                >
-                  🌱 Fat Loss & Detox
-                </button>
-                <button
-                  onClick={() => setGoal('maintain')}
-                  className={`p-2 rounded-xl text-[11px] font-bold border transition-all text-center cursor-pointer ${
-                    goal === 'maintain' ? 'bg-amber-500/20 border-amber-500 text-amber-300' : 'bg-gray-950/50 border-gray-800 text-gray-400'
-                  }`}
-                >
-                  ⚡ Energy Maintenance
-                </button>
-                <button
-                  onClick={() => setGoal('muscle')}
-                  className={`p-2 rounded-xl text-[11px] font-bold border transition-all text-center cursor-pointer ${
-                    goal === 'muscle' ? 'bg-teal-500/20 border-teal-500 text-teal-300' : 'bg-gray-950/50 border-gray-800 text-gray-400'
-                  }`}
-                >
-                  💪 Lean Muscle Growth
-                </button>
+              <div>
+                <div className="flex justify-between text-sm mb-3">
+                  <span className="text-[#8a9b91]">Weight</span>
+                  <span className="text-white font-serif">{weight} kg</span>
+                </div>
+                <input 
+                  type="range" min="40" max="150" value={weight} 
+                  onChange={(e) => setWeight(e.target.value)}
+                  className="w-full accent-[#22c55e] h-1 bg-white/10 rounded-lg appearance-none cursor-pointer"
+                />
               </div>
             </div>
 
-          </div>
-
-          {/* Results Summary Card */}
-          <div className="glass-panel p-6 border-amber-500/40 bg-gray-950/90 flex flex-col justify-between">
             <div className="space-y-4">
-              <div className="text-center pb-3 border-b border-gray-800">
-                <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Your Daily Target Score</span>
-                <div className="mt-2 text-3xl font-extrabold font-serif text-white flex items-center justify-center gap-2">
-                  <Flame className="w-6 h-6 text-amber-400 animate-pulse" />
-                  <span>{targetCals} kcal</span>
-                </div>
-                <p className="text-[11px] text-gray-400 mt-1">Recommended daily energy intake for your goal</p>
-              </div>
-
-              {/* Target Macro Grid */}
-              <div className="grid grid-cols-3 gap-2 text-center">
-                <div className="bg-gray-900/90 p-3 rounded-xl border border-gray-800">
-                  <span className="text-[10px] text-emerald-400 uppercase font-bold block">Protein</span>
-                  <span className="text-base font-extrabold text-white">{targetProtein}g</span>
-                  <span className="text-[9px] text-gray-400 block mt-0.5">~30%</span>
-                </div>
-                <div className="bg-gray-900/90 p-3 rounded-xl border border-gray-800">
-                  <span className="text-[10px] text-amber-400 uppercase font-bold block">Carbs</span>
-                  <span className="text-base font-extrabold text-white">{targetCarbs}g</span>
-                  <span className="text-[9px] text-gray-400 block mt-0.5">~40%</span>
-                </div>
-                <div className="bg-gray-900/90 p-3 rounded-xl border border-gray-800">
-                  <span className="text-[10px] text-teal-400 uppercase font-bold block">Fats</span>
-                  <span className="text-base font-extrabold text-white">{targetFat}g</span>
-                  <span className="text-[9px] text-gray-400 block mt-0.5">~30%</span>
-                </div>
-              </div>
-
-              {/* Recommended Dish */}
-              <div className="bg-emerald-950/40 p-3.5 rounded-xl border border-emerald-500/30 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold text-lg">
-                  🥗
-                </div>
-                <div>
-                  <p className="text-[10px] text-emerald-400 uppercase font-bold">Recommended Pure Dish</p>
-                  <p className="text-xs font-bold text-white">Wild Salmon & Avocado Power Bowl</p>
-                  <p className="text-[10px] text-gray-400">38g Protein • Organic Quinoa & Edamame</p>
-                </div>
+              <h3 className="text-[#8a9b91] uppercase tracking-widest text-xs font-semibold mb-4">Objective</h3>
+              <div className="grid grid-cols-3 gap-3">
+                {['lose', 'maintain', 'gain'].map(g => (
+                  <button
+                    key={g}
+                    onClick={() => setGoal(g)}
+                    className={`py-3 text-xs font-medium uppercase tracking-wider rounded-xl border transition-all duration-500 ${
+                      goal === g 
+                        ? 'border-[#22c55e] bg-[#22c55e]/10 text-[#22c55e]' 
+                        : 'border-white/5 bg-black/20 text-[#8a9b91] hover:border-white/20'
+                    }`}
+                  >
+                    {g}
+                  </button>
+                ))}
               </div>
             </div>
-
-            {/* Action buttons */}
-            <div className="pt-4 space-y-2">
-              <button 
-                onClick={() => {
-                  onClose();
-                  onOpenBuilder();
-                }}
-                className="btn-amber w-full justify-center text-xs py-3 cursor-pointer"
-              >
-                <Sparkles className="w-4 h-4" /> Build Meal for {targetCals} Cals
-              </button>
-            </div>
-
           </div>
 
+          {/* Right: Results Card */}
+          <div className="flex flex-col h-full">
+            <div className="glass-panel bg-[#0a1a12] p-8 rounded-3xl border border-white/5 flex-1 flex flex-col justify-between">
+              
+              <div className="text-center space-y-2 mb-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#22c55e]/10 text-[#22c55e] mb-4">
+                  <Flame className="w-8 h-8" />
+                </div>
+                <p className="text-[#8a9b91] uppercase tracking-widest text-xs font-semibold">Daily Target</p>
+                <p className="font-serif text-6xl text-white">{calories}</p>
+                <p className="text-[#8a9b91] text-sm">kcal</p>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4 mb-8">
+                <div className="bg-black/40 p-4 rounded-2xl text-center border border-white/5">
+                  <p className="text-[#22c55e] font-medium text-lg">{protein}g</p>
+                  <p className="text-[#8a9b91] text-xs uppercase tracking-wider mt-1">Protein</p>
+                </div>
+                <div className="bg-black/40 p-4 rounded-2xl text-center border border-white/5">
+                  <p className="text-[#eab308] font-medium text-lg">{carbs}g</p>
+                  <p className="text-[#8a9b91] text-xs uppercase tracking-wider mt-1">Carbs</p>
+                </div>
+                <div className="bg-black/40 p-4 rounded-2xl text-center border border-white/5">
+                  <p className="text-teal-400 font-medium text-lg">{fat}g</p>
+                  <p className="text-[#8a9b91] text-xs uppercase tracking-wider mt-1">Fat</p>
+                </div>
+              </div>
+
+              <div className="bg-[#22c55e]/5 border border-[#22c55e]/20 p-5 rounded-2xl">
+                <div className="flex items-start space-x-3">
+                  <Sparkles className="w-5 h-5 text-[#22c55e] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-white font-medium text-sm mb-1">Recommended Approach</p>
+                    <p className="text-[#8a9b91] text-xs leading-relaxed">
+                      Based on your metrics, a high-protein bowl with quinoa and double greens will hit these targets perfectly.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            
+            <button 
+              onClick={() => {
+                onClose();
+                if (onOpenBuilder) onOpenBuilder();
+              }}
+              className="mt-6 btn-primary w-full py-4 rounded-xl flex items-center justify-center font-medium bg-[#22c55e] text-[#060d09] hover:bg-[#22c55e]/90 transition-all duration-500"
+            >
+              Build Your Custom Bowl
+            </button>
+          </div>
         </div>
 
       </div>

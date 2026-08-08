@@ -10,16 +10,7 @@ import FarmTraceability from './components/FarmTraceability';
 import Footer from './components/Footer';
 
 export default function App() {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 'avocado-salmon-bowl',
-      name: 'Wild Atlantic Salmon & Avocado Power Bowl',
-      price: 18.99,
-      image: '/assets/avocado_power_bowl.png',
-      calories: 540,
-      quantity: 1
-    }
-  ]);
+  const [cartItems, setCartItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isBuilderOpen, setIsBuilderOpen] = useState(false);
@@ -62,9 +53,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--bg-dark)] text-gray-100 selection:bg-emerald-500 selection:text-gray-950">
+    <div className="min-h-screen flex flex-col selection:bg-green-500/30 selection:text-white">
       
-      {/* Sticky Header Navbar */}
+      {/* Navbar */}
       <Navbar
         cartCount={cartCount}
         onOpenCart={() => setIsCartOpen(true)}
@@ -74,27 +65,32 @@ export default function App() {
         setSearchQuery={setSearchQuery}
       />
 
-      {/* Main Content Layout */}
+      {/* Main Content */}
       <main className="flex-1">
-        
-        {/* Hero Banner Showcase */}
         <Hero
           onOpenBuilder={() => setIsBuilderOpen(true)}
           onExploreMenu={scrollToMenu}
         />
 
-        {/* Menu & Category Search Catalog */}
+        {/* Thin accent divider between hero and menu */}
+        <div className="container-custom">
+          <div className="h-px bg-gradient-to-r from-transparent via-[var(--accent)]/20 to-transparent" />
+        </div>
+
         <MenuSection
           searchQuery={searchQuery}
           onAddToCart={handleAddToCart}
         />
 
-        {/* Local Farm Traceability & Community Reviews */}
-        <FarmTraceability />
+        {/* Thin accent divider */}
+        <div className="container-custom">
+          <div className="h-px bg-gradient-to-r from-transparent via-[var(--accent)]/20 to-transparent" />
+        </div>
 
+        <FarmTraceability />
       </main>
 
-      {/* Modals & Slide-over Drawers */}
+      {/* Modals */}
       <BowlBuilder
         isOpen={isBuilderOpen}
         onClose={() => setIsBuilderOpen(false)}
@@ -127,7 +123,6 @@ export default function App() {
         onOpenBuilder={() => setIsBuilderOpen(true)}
         onOpenCalculator={() => setIsCalculatorOpen(true)}
       />
-
     </div>
   );
 }
